@@ -24,9 +24,9 @@ jobs:
 
       - name: Create env file
         run: |
-          echo "${{ secrets.ENV_FILE }}" > ./ping-web/.env
+          echo "${{ secrets.PING_ENV_FILE }}" > ./ping-web/.env
           mkdir -p ../cms-django/biscuit-web
-          echo "${{ secrets.ENV_FILE }}" > ../cms-django/biscuit-web/.env
+          echo "${{ secrets.BISCUIT_ENV_FILE }}" > ../cms-django/biscuit-web/.env
 
       - name: Create env_db file
         run: |
@@ -43,7 +43,7 @@ jobs:
         run: |
           docker-compose build
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push "${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROJECT_NAME }}_web:simple-web-server"
+          docker push "${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROJECT_NAME }}_web:with-k8s"
 
 #  deploy:
 #    needs: build

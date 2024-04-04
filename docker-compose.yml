@@ -31,7 +31,7 @@ services:
       - db-network
       - redis-network
   nginx:
-    image: pingshian0131/pingshian-personal-website_nginx
+    image: pingshian0131/pingshian-personal-website_nginx:with-k8s
     restart: unless-stopped
     volumes:
       - personal_static_volume:/var/www/personal/static
