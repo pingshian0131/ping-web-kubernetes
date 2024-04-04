@@ -13,7 +13,7 @@ services:
 #    networks:
 #      - default
   personal-website:
-    image: pingshian0131/pingshian-personal-website_web:with-k8s
+    image: pingshian0131/pingshian-personal-website_web:with-k8s-1
     build:
       context: ./app/ping-web
       dockerfile: Dockerfile
