@@ -30,4 +30,4 @@ spec:
             - mountPath: "/data/static"
               name: static-volume
       imagePullSecrets:
-        - name: regcred
+        - name: regcred-ping
