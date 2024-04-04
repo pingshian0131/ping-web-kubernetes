@@ -17,7 +17,7 @@ services:
   personal-website:
     image: pingshian0131/pingshian-personal-website_web:with-k8s
     build:
-      context: ./ping-web
+      context: ./app/ping-web
       dockerfile: Dockerfile
     volumes:
       - personal_static_volume:/var/www/personal/static
@@ -25,7 +25,7 @@ services:
     ports:
       - "8001:8001"
     env_file:
-      - ./ping-web/.env
+      - ./app/ping-web/.env
     networks:
       - default
       - db-network
