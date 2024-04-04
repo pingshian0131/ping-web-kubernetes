@@ -170,8 +170,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
-if not DEBUG:
-    STATIC_ROOT = os.environ.get("STATIC_ROOT", os.path.join(BASE_DIR, "/static/"))
+# if not DEBUG:
+STATIC_ROOT = os.environ.get("STATIC_ROOT", os.path.join(BASE_DIR, "/var/www/personal/static/"))
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -194,7 +194,7 @@ EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "pingshian0131@gmail.com")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 
-CSRF_TRUSTED_ORIGINS = ["https://pingshian.com"]
+CSRF_TRUSTED_ORIGINS = ["https://pingshian.com", "http://127.0.0.1:30005"]
 
 RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY", "")
 RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY", "")
