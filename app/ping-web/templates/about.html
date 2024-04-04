@@ -1,0 +1,39 @@
+{% load static %}
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>About</h2>
+        <p>{{ introduce.about_introduce|safe|linebreaksbr }}</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="{% get_media_prefix %}{{ about.img }}" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-8 pt-4 pt-lg-0 content">
+          <h3>{{ about.job_title|safe }}</h3>
+          <p class="fst-italic">
+            {{ introduce.about_introduce_job|safe|linebreaksbr }}
+          </p>
+          <div class="row">
+            {% for item in personal_information %}
+              {% if forloop.counter0|divisibleby:4 %}
+                <div class="col-lg-6">
+                  <ul>
+              {% endif %}
+                    <li><i class="bi bi-chevron-right"></i> <strong>{{ item.info }}:</strong> <span>{{ item.value }}</span></li>
+              {% if forloop.counter|divisibleby:4 or forloop.last %}
+                  </ul>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+{#          <p>#}
+{#            {{ introduce.about_introduce_bottom|safe|linebreaksbr }}#}
+{#          </p>#}
+        </div>
+      </div>
+
+    </div>
+  </section>

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: ping-web-ns
+  labels:
+    app: app-svc
+spec:
+  ports:
+    - port: 8001
+      targetPort: 8001
+  selector:
+    app: django-application

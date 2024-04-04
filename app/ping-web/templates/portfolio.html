@@ -1,0 +1,41 @@
+{% load static %}
+<section id="portfolio" class="portfolio section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Portfolio</h2>
+{#      <p>{{ introduce.portfolio_introduce|safe|linebreaksbr }}</p>#}
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+        <ul id="portfolio-flters">
+          <li data-filter="*" class="filter-active">All</li>
+          {% for category in portfolio_category %}
+          <li data-filter=".filter-{{ category.category|lower }}">{{ category.category }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+      {% for item in portfolio %}
+      <div class="col-lg-4 col-md-6 portfolio-item filter-{{ item.category.category|lower }}">
+        <div class="portfolio-wrap">
+          <img src="{% get_media_prefix %}{{ item.images }}" class="img-fluid" alt="">
+          <div class="portfolio-info">
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.category.category }}</p>
+            <div class="portfolio-links">
+              <a href="{% get_media_prefix %}{{ item.images }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ item.title }}"><i class="bx bx-plus"></i></a>
+              {% comment %}先留著，可能用的到 <a href="{{ item.url }}" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a> {% endcomment %}
+              <a href="{{ item.url }}" target="_blank"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

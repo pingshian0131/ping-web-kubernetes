@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- ======= Mobile nav toggle button ======= -->
+  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex flex-column justify-content-center">
+
+    <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+        <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+        <li><a href="#articles" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Articles</span></a></li>
+        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+      </ul>
+    </nav><!-- .nav-menu -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Pingshian Yu</h1>
+      <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer"></span></p>
+      {% include 'social-links.html' %}
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    {% include 'about.html' with introduce=introduce about=about personal_information=personal_information %}
+    <!-- End About Section -->
+
+    {% comment %}沒用到暫時保留
+    <!-- ======= Facts Section ======= -->
+    {% include 'facts.html' %}
+    <!-- End Facts Section -->
+    {% endcomment %}
+
+    <!-- ======= Skills Section ======= -->
+    {% include 'skills.html' with introduce=introduce skills=skills %}
+    <!-- End Skills Section -->
+
+    <!-- ======= Resume Section ======= -->
+    {% include 'resume.html' with introduce=introduce summary=summary education=education professional_experience=professional_experience%}
+    <!-- End Resume Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    {% include 'portfolio.html' with introduce=introduce portfolio_category=portfolio_category portfolio=portfolio %}
+    <!-- End Portfolio Section -->
+
+    <!-- ======= Articles Section ======= -->
+    {% include 'articles.html' with introduce=introduce article=article %}
+    <!-- End Articles Section -->
+
+    {% comment %}沒用到暫時保留
+    <!-- ======= Testimonials Section ======= -->
+    {% include 'testimonials.html' %}
+    <!-- End Testimonials Section -->
+    {% endcomment %}
+
+    <!-- ======= Contact Section ======= -->
+    {% include 'contact.html' %}
+
+  </main><!-- End #main -->
+
+
+{% endblock %}
+{% block extra_javascript %}
+<script>
+    $(document).ready(function () {
+        $("form.php-email-form").on("submit", function (e) {
+            e.preventDefault();
+            $(".loading").addClass("d-block");
+            var form = $(this);
+            var formData = form.serialize();
+    
+            $.ajax({
+                type: "POST",
+                url: "{% url 'person:send_email' %}",
+                
+                data: formData,
+                success: function (data) {
+                    // 成功時的處理，顯示成功訊息
+                    if (data.result) {
+                        $(".loading").removeClass("d-block");
+                        $(".sent-message").show();
+                    }
+                    else {
+                        alert("驗證錯誤, 請重新填寫表單。")
+                        window.location.href = "{% url 'person:home' %}";
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    // 錯誤時的處理，顯示錯誤訊息
+                    $(".loading").removeClass("d-block");
+                    $(".error-message").text("Oops! Something went wrong.");
+                    $(".sent-message").show();
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

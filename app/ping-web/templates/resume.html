@@ -1,0 +1,49 @@
+{% load static %}
+{% load markdown_tags %}
+
+{% block extra_css %}
+<style>
+  .editormd-preview-container,
+  .editormd-html-preview {
+    padding: 0;
+  }
+  
+</style>
+{% endblock %}
+
+<section id="resume" class="resume">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Resume</h2>
+        <p>{{ introduce.resume_introduce|safe|linebreaksbr }}</p>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-lg-10">
+{#          <h3 class="resume-title">Summary</h3>#}
+{#          <div class="pb-0">#}
+{#            <div id="summary-content">{{ summary.content|markdown_to_html|safe }}</div>#}
+{#          </div>#}
+
+          <h3 class="resume-title">Education</h3>
+          {% for item in education %}
+          <div class="resume-item">
+            <h4>{{ item.title|safe }}</h4>
+            <div id="education-markdown-content-{{ forloop.counter }}">{{ item.content|markdown_to_html|safe }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="col-lg-10">
+          <h3 class="resume-title">Professional Experience</h3>
+          {% for item in professional_experience %}
+          <div class="resume-item">
+            <h4>{{ item.title|safe }}</h4>
+            <div id="professional-experience-markdown-content-{{ forloop.counter }}">{{ item.content|markdown_to_html|safe }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </section>

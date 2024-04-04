@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app-deploy
+  namespace: ping-web-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-application
+  template:
+    metadata:
+      labels:
+        app: django-application
+    spec:
+      volumes:
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-pvc
+      containers:
+        - image: pingshian0131/pingshian-personal-website_web:with-k8s
+          imagePullPolicy: Always
+          name: django-app-container
+          envFrom:
+            - configMapRef:
+                name: app-cm
+          ports:
+            - containerPort: 8001
+          volumeMounts:
+            - mountPath: "/data/static"
+              name: static-volume
+      imagePullSecrets:
+        - name: regcred

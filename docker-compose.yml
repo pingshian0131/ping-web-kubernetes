@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  biscuit-website:
+    image: pingshian0131/pingshian-personal-website_biscuit-website:with-k8s
+    volumes:
+      - biscuit_static_volume:/var/www/biscuit/static
+      - biscuit_media_volume:/var/www/biscuit/media
+    ports:
+      - "8002:8002"
+    env_file:
+      - ../cms-django/biscuit-web/.env
+    networks:
+      - default
+      - db-network
+      - redis-network
+  personal-website:
+    image: pingshian0131/pingshian-personal-website_web:with-k8s
+    build:
+      context: ./ping-web
+      dockerfile: Dockerfile
+    volumes:
+      - personal_static_volume:/var/www/personal/static
+      - personal_media_volume:/var/www/personal/media
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./ping-web/.env
+    networks:
+      - default
+      - db-network
+      - redis-network
+  nginx:
+    image: pingshian0131/pingshian-personal-website_nginx
+    restart: unless-stopped
+    volumes:
+      - personal_static_volume:/var/www/personal/static
+      - personal_media_volume:/var/www/personal/media
+      - biscuit_static_volume:/var/www/biscuit/static
+      - biscuit_media_volume:/var/www/biscuit/media
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - default
+  portainer:
+    image: portainer/portainer-ce:latest
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  postgres_data:
+  personal_static_volume:
+  personal_media_volume:
+  biscuit_static_volume:
+  biscuit_media_volume:
+  portainer_data:
+  redis_data:
+
+networks:
+  default:

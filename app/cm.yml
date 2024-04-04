@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cm
+  namespace: ping-web-ns
+data:
+  DB_HOST: "postgres-service"
+  DB_USERNAME: "ping_user"
+  DB_PASSWORD: "ping_password"
+  DB_NAME: "ping_web_db"
+  DB_PORT: "5432"
+  STATIC_ROOT: "/data/static"
