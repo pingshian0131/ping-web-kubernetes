@@ -24,7 +24,7 @@ jobs:
 
       - name: Create env file
         run: |
-          echo "${{ secrets.PING_ENV_FILE }}" > ./ping-web/.env
+          echo "${{ secrets.PING_ENV_FILE }}" > ./app/ping-web/.env
           mkdir -p ../cms-django/biscuit-web
           echo "${{ secrets.BISCUIT_ENV_FILE }}" > ../cms-django/biscuit-web/.env
 
