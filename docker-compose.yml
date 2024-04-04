@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  biscuit-website:
-    image: pingshian0131/pingshian-personal-website_biscuit-website:with-k8s
-    volumes:
-      - biscuit_static_volume:/var/www/biscuit/static
-      - biscuit_media_volume:/var/www/biscuit/media
-    ports:
-      - "8002:8002"
-    env_file:
-      - ../cms-django/biscuit-web/.env
-    networks:
-      - default
+#  biscuit-website:
+#    image: pingshian0131/pingshian-personal-website_biscuit-website:with-k8s
+#    volumes:
+#      - biscuit_static_volume:/var/www/biscuit/static
+#      - biscuit_media_volume:/var/www/biscuit/media
+#    ports:
+#      - "8002:8002"
+#    env_file:
+#      - ../cms-django/biscuit-web/.env
+#    networks:
+#      - default
   personal-website:
     image: pingshian0131/pingshian-personal-website_web:with-k8s
     build:
@@ -29,6 +29,9 @@ services:
   nginx:
     image: pingshian0131/pingshian-personal-website_nginx:with-k8s
     restart: unless-stopped
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     volumes:
       - personal_static_volume:/var/www/personal/static
       - personal_media_volume:/var/www/personal/media
